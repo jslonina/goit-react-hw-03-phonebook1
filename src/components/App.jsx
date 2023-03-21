@@ -22,7 +22,7 @@ export class App extends Component {
     if (
       this.state.contacts.find(
         contact =>
-          contact.name === name.value && contact.number === number.value
+          contact.name === name.value || contact.number === number.value
       )
     ) {
       alert(`${name.value} is already in contacts`);
