@@ -13,6 +13,14 @@ export class App extends Component {
       filter: '',
     };
   }
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    if (contacts) {
+      this.setState({ contacts: JSON.parse(contacts) });
+    }
+  }
+
+
   onFormSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -37,7 +45,10 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
-
+    localStorage.setItem(
+      'contacts',
+      JSON.stringify([...this.state.contacts, contact])
+    );
     form.reset();
   };
 
@@ -49,6 +60,10 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
+    localStorage.setItem(
+      'contacts',
+      JSON.stringify(this.state.contacts.filter(contact => contact.id !== id))
+    );
   };
 
   render() {
